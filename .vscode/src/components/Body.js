@@ -15,11 +15,8 @@ const Body = () => {
           (res) => res.info.avgRating < 4.3
         )
     );
-    setcardDatas(filteredList);  
+    setcardDatas(filteredlist)
   }
-   
-
-    
     
     return (
         <div className="body">
