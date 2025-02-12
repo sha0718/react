@@ -1,0 +1,1 @@
+{"mappings":"ACAA","sources":["index.37fbd0de.css",".vscode/app.css"],"sourcesContent":["#heading {\n  color: #00f;\n}\n/*# sourceMappingURL=index.37fbd0de.css.map */\n","#heading {\r\n    color :blue;\r\n}"],"names":[],"version":3,"file":"index.37fbd0de.css.map"}
