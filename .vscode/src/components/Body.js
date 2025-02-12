@@ -3,7 +3,7 @@ import { useState } from "react";
 import bigData from "../../data";
 
 
-
+  
 const Body = () => {
     const swiggyData = bigData.swiggyData.data.cards;
   const [cardDatas, setcardDatas] = useState(swiggyData);
@@ -15,9 +15,9 @@ const Body = () => {
           (res) => res.info.avgRating < 4.3
         )
     );
-    setcardDatas(filteredlist)
+    setcardDatas(filteredList)
   }
-    
+  console.log(cardDatas)
     return (
         <div className="body">
             <div className="search">
@@ -27,7 +27,7 @@ const Body = () => {
             <div className="res-container">
             <RestaurantCard cardData= {cardDatas} />
          </div>
-            </div>
+        </div>
 
               
    );
