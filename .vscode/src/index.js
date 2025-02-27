@@ -1,17 +1,45 @@
-import React from "react";
+import React ,{lazy,Suspense} from "react";
 import ReactDOM from "react-dom/client";
-import bigData from "../data";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Header from "./components/Header";
 import Body from "./components/Body";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurantMenu";
+// import Grocery from "./components/Grocery";
 
-const AppLayout = () => {
-  return <div className="app">
+const Grocery = lazy(() => import("./components/Grocery"));
+
+const AppLayout = () => (
+  <div className="app">
     <Header />
-    <Body/>
+    <Outlet />
   </div>
-};
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<AppLayout/>);
-
+root.render(
+  <BrowserRouter>
+    <Routes>
+    <Route path="/" element={<AppLayout />}>
+        {/* Child Routes */}
+        <Route index element={<Body />} /> 
+        <Route path="contact" element={<Contact />} />
+        <Route path="about" element={<About />} />
+        <Route path="restaurant/:resId" element={<RestaurantMenu />} />
+        
+        <Route path="grocery"  element={
+        <Suspense fallback={<div>Loading Grocery...</div>}>
+          <Grocery />
+        </Suspense>
+      }
+    />
+      </Route>
+        
+      
+      <Route path="*" element={<Error />} />
+    </Routes>
+  </BrowserRouter>
+);
