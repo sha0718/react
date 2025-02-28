@@ -2,6 +2,7 @@
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
     
@@ -13,10 +14,12 @@ const RestaurantMenu = () => {
 
     const { name, cuisines, sla, costForTwoMessage } = resInfo?.cards[2]?.card?.card?.info || {};
     const itemCards = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+    const categories =  resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [] .filter(
+      (c) =>        
+  c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+      
 
 
-console.log(itemCards
-    );  
 
     const foodItems = itemCards
     ?.filter((item) => item?.card?.card?.carousel) // Keep only those with a `carousel` array
@@ -25,19 +28,21 @@ console.log(itemCards
     ?.filter((info) => info?.name && info?.price); // Remove items with missing data
 
     return (
-        <div>
-            <h1>{name}</h1>
-            <h3>{cuisines?.join(", ")}</h3>
-            <h3>{sla?.deliveryTime}</h3>
-            <h3>{costForTwoMessage}</h3>
-            <h2>Menu</h2>
+        <div className="text-center">
+            <h1 className="font-bold my-6 text-2xl">{name}</h1>
+            <h3 className="font-bold text-lg">{cuisines?.join(", ")}</h3>
+            {/* <h3>{sla?.deliveryTime}</h3> */}
+            <h3 className="font-bold text-lg">{costForTwoMessage}</h3>
+            {/* <h2>Menu</h2>
             <ul>
             {foodItems.map((item, index) => (
     <li key={index}>
       {item.name} - Rs. {item.price / 100}
     </li>
   ))}
-            </ul>
+            </ul> */}
+
+            {categories.map((category) => (<RestaurantCategory key = {category?.card?.card?.title} data = {category?.card?.card}/>))}
         </div>
   );
 } 

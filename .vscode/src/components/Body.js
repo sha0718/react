@@ -90,7 +90,7 @@ const Body = () => {
 
     const promotedRestaurants = cardDatas.flatMap((resData) => {
         const restaurants = resData?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? [];
-        return restaurants.filter((res) => res?.info?.aggregatedDiscountInfoV3);
+        return restaurants;
     });
 
     return cardDatas.length === 0 ? (<Shimmer />) : (
@@ -101,9 +101,14 @@ const Body = () => {
                 <button className="p-1 m-1 bg-black text-white rounded-lg" onClick={topRatedRestaurants}>Top Rated Restaurants</button>
             </div>
             <div className="flex flex-wrap rounded-lg">
-                {promotedRestaurants.map((res, index) => (
-                    <RestaurantCardWithLabel key={index} cardData={[{ card: { card: { gridElements: { infoWithStyle: { restaurants: [res] } } } } }]} />
-                ))}
+                {promotedRestaurants.map((res, index) => {
+                    const cardData = [{ card: { card: { gridElements: { infoWithStyle: { restaurants: [res] } } } } }];
+                    return res.info.aggregatedDiscountInfoV3 ? (
+                        <RestaurantCardWithLabel key={index} cardData={cardData} />
+                    ) : (
+                        <RestaurantCard key={index} cardData={cardData} />
+                    );
+                })}
             </div>
         </div>
     );

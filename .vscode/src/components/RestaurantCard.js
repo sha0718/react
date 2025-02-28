@@ -36,15 +36,15 @@ export const withPromotedLabel = (RestaurantCard) => {
     return (props) => {
         const getDiscountInfo = () => {
             const res = props.cardData?.flatMap((resData) => resData?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? [])
-                .find((res, index) => {
+                .find((res) => {
                     res?.info?.aggregatedDiscountInfoV3;
                 });
-            return res ? `Offer: ${res.info.promotionInfo.title}` : "";
+            return res ? `Offer: ${res.info.aggregatedDiscountInfoV3.header}` : "";
         };
-        debugger
+
         return (
             <div>
-                <h3>{getDiscountInfo()}</h3>
+                 <h3>{getDiscountInfo()}</h3>
                 <RestaurantCard {...props} />
             </div>
         );
