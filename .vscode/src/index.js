@@ -9,7 +9,10 @@ import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import UserContext from "./utils/UserContext";
 import { useState, useEffect } from "react";
-// import Grocery from "./components/Grocery";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
+
 
 const Grocery = lazy(() => import("./components/Grocery"));
 
@@ -24,12 +27,14 @@ const AppLayout = () => {
   }, []);
 
   return (
+    <Provider store={appStore}>
     <UserContext.Provider value={{loggedInUser: userName , setUserName}}>
       <div className="app">
       <Header />
       <Outlet />
     </div>
     </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -44,11 +49,13 @@ root.render(
         <Route path="contact" element={<Contact />} />
         <Route path="about" element={<About />} />
         <Route path="restaurant/:resId" element={<RestaurantMenu />} />
+        <Route path ="cart" element={<Cart />} />
         
         <Route path="grocery"  element={
         <Suspense fallback={<div>Loading Grocery...</div>}>
           <Grocery />
         </Suspense>
+        
       }
     />
       </Route>
