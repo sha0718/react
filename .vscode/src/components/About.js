@@ -18,14 +18,14 @@ class About extends React.Component {
         
         return (
             <div>
-                <h1>About</h1>
-                <div>
+                <h1 className = "text-2xl font-bold text-center m-4 p-4"> About Us Page :</h1>
+                <div className = "text-center m-4 p-4">
                     <UserContext.Consumer>
                         {({loggedInUser}
                         ) => <h1 className = "font-bold text-xl">{loggedInUser}</h1>}
                     </UserContext.Consumer>
                 </div>
-                <h2>This is the about page</h2>
+                <h2 className = "text-xl font-bold text-center m-4 p-4">This is the eco food delivery app.</h2>
                 {/* <User /> */}
                 <UserClass name={"Shailendra Sharma (class)"} location={"Ahemdabad class"} />
             </div>
